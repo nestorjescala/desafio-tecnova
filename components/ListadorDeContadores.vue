@@ -14,13 +14,6 @@
       >
         Agregar contador
       </button>
-      <!-- <button 
-        class="btn-crear-primero"
-        :disabled="!puedeAgregar"
-        @click="$emit('crear-contador')"
-      >
-        Crear mi primer contador
-      </button> -->
     </div>
     
     <!-- Sin resultados por filtros -->
@@ -34,7 +27,7 @@
     </div>
     
     <!-- Lista de contadores -->
-    <div v-else class="grid-contadores">
+    <div v-else class="lista-contadores">
       <Contador 
         v-for="contador in contadoresFiltrados"
         :key="contador.id"
@@ -161,11 +154,11 @@ export default {
   cursor: not-allowed;
 }
 
-/* Grid de contadores */
-.grid-contadores {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+/* Lista de contadores */
+.lista-contadores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
@@ -191,11 +184,6 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .grid-contadores {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
   .estado-vacio,
   .sin-resultados {
     padding: 40px 20px;

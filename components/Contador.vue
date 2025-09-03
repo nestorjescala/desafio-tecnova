@@ -1,28 +1,14 @@
 <template>
-  <div class="contador-card">
-    <div class="contador-header">
-      <h4 class="contador-nombre">{{ contador.nombre }}</h4>
-      <button 
-        class="btn-eliminar"
-        @click="confirmarEliminacion"
-        title="Eliminar contador"
-      >
-        ✕
-      </button>
-    </div>
-    
-    <div class="contador-body">
-      <div class="valor-container">
-        <span class="valor-numero">{{ contador.valor }}</span>
-        <div class="valor-barra">
-          <div 
-            class="valor-progreso"
-            :style="{ width: porcentajeProgreso + '%' }"
-          ></div>
-        </div>
-      </div>
+  <div class="contador-item">
+    <div class="contador-contenido">
+      <input 
+        type="text" 
+        class="contador-input"
+        :value="contador.nombre"
+        readonly
+      />
       
-      <div class="controles">
+      <div class="contador-controles">
         <button 
           class="btn-control btn-decrementar"
           :disabled="!puedeDecrementar"
@@ -32,6 +18,8 @@
           −
         </button>
         
+        <span class="contador-valor">{{ contador.valor }}</span>
+        
         <button 
           class="btn-control btn-incrementar"
           :disabled="!puedeIncrementar"
@@ -39,6 +27,14 @@
           title="Incrementar"
         >
           +
+        </button>
+        
+        <button 
+          class="btn-eliminar"
+          @click="confirmarEliminacion"
+          title="Eliminar contador"
+        >
+          🗑️
         </button>
       </div>
     </div>
@@ -107,10 +103,6 @@ export default {
     
     puedeDecrementar() {
       return this.contador.valor > 0
-    },
-    
-    porcentajeProgreso() {
-      return (this.contador.valor / 20) * 100
     }
   },
   
@@ -144,133 +136,97 @@ export default {
 </script>
 
 <style scoped>
-.contador-card {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border: 1px solid #e9ecef;
-  transition: all 0.2s ease;
+.contador-item {
+  background-color: #007bff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 4px;
   position: relative;
 }
 
-.contador-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.contador-header {
+.contador-contenido {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
+  gap: 16px;
 }
 
-.contador-nombre {
-  font-size: 16px;
-  font-weight: 600;
-  color: #343a40;
-  margin: 0;
-  word-break: break-word;
+.contador-input {
   flex: 1;
-  margin-right: 8px;
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  min-width: 0;
+}
+
+.contador-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-control {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-control:hover:not(:disabled) {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.btn-control:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.contador-valor {
+  background-color: white;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .btn-eliminar {
-  background-color: transparent;
+  width: 32px;
+  height: 32px;
   border: none;
+  border-radius: 4px;
+  background-color: white;
   color: #dc3545;
   font-size: 16px;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s ease;
-  flex-shrink: 0;
 }
 
 .btn-eliminar:hover {
   background-color: #dc3545;
   color: white;
-}
-
-.contador-body {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.valor-container {
-  text-align: center;
-}
-
-.valor-numero {
-  font-size: 32px;
-  font-weight: 700;
-  color: #007bff;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.valor-barra {
-  width: 100%;
-  height: 6px;
-  background-color: #e9ecef;
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.valor-progreso {
-  height: 100%;
-  background: linear-gradient(90deg, #28a745 0%, #ffc107 50%, #dc3545 100%);
-  transition: width 0.3s ease;
-  border-radius: 3px;
-}
-
-.controles {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-.btn-control {
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 50%;
-  font-size: 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-decrementar {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-decrementar:hover:not(:disabled) {
-  background-color: #c82333;
-  transform: scale(1.1);
-}
-
-.btn-incrementar {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn-incrementar:hover:not(:disabled) {
-  background-color: #218838;
-  transform: scale(1.1);
-}
-
-.btn-control:disabled {
-  background-color: #e9ecef;
-  color: #6c757d;
-  cursor: not-allowed;
-  transform: none;
+  transform: scale(1.05);
 }
 
 /* Modal de confirmación */
@@ -359,18 +315,25 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .contador-card {
-    padding: 16px;
+  .contador-contenido {
+    gap: 8px;
   }
   
-  .valor-numero {
-    font-size: 28px;
+  .contador-controles {
+    gap: 4px;
   }
   
-  .btn-control {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+  .btn-control,
+  .btn-eliminar {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .contador-valor {
+    padding: 4px 8px;
+    min-width: 32px;
+    font-size: 12px;
   }
 }
 </style>

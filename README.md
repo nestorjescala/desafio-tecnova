@@ -1,4 +1,4 @@
-# Gestión de Contadores - Desafío Tecnova
+# Gestión de Contadores - Desafío ACL
 
 Aplicación web desarrollada con **Nuxt.js** para la gestión de contadores.
 

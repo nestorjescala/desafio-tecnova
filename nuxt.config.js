@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Gestión de Contadores - Desafio Tecnova',
+    title: 'Gestión de Contadores - Desafio ACL',
     htmlAttrs: {
       lang: 'es'
     },
